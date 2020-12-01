@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Unio</string>
+
+    <!-- Email service strings -->
+    <string name="mail_welcome">
+        <![CDATA[
+        <b>Send an email with this format:</b><br />
+        <i>
+            valid@mail.com : subject<br />
+            The email that you wan to send
+        </i>
+        ]]>
+    </string>
+    <string name="no_subject">(No subject)</string>
+    <string name="sent_mail">The email was sent</string>
+    <string name="incorrect_mail_format">The email format is incorrect</string>
+</resources>
