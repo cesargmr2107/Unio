@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Unio</string>
 
+    <!-- Chat menu -->
+    <string name="option_clear">Clear all messages</string>
+
     <!-- Email service strings -->
     <string name="mail_welcome">
         <![CDATA[

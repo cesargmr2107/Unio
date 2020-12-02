@@ -19,9 +19,8 @@ public class MailServiceActivity extends ServiceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mailManager = new MailManager(MAIL_ADDRESS, MAIL_PASS);
-        sendMessage(getString(R.string.mail_welcome));
+        sendWelcomeMessage(getString(R.string.mail_welcome));
     }
-
 
     @Override
     protected void processUserInput() {
