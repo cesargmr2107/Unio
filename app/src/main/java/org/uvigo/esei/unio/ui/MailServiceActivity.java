@@ -11,10 +11,6 @@ public class MailServiceActivity extends ServiceActivity {
     private final String MAIL_ADDRESS = "unio.user.esei@gmail.com";
     private final String MAIL_PASS = "unio.user.esei.2020";
 
-    private final String MAIL_WECOLME = "In order to send a mail use this format:\n" +
-            "valid@mail.com : subject\n" +
-            "The email that you wan to send";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
