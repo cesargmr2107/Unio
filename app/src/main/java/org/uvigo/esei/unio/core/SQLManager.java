@@ -17,8 +17,7 @@ public class SQLManager extends SQLiteOpenHelper {
     private static final String DB_NAME = "ServiceMessages";
     private static final int DB_VERSION = 1;
 
-    public enum ServiceTable {MailService}
-
+    public enum ServiceTable {MailService, WeatherService}
 
 
     public static final String ID_FIELD = "_id";
@@ -123,7 +122,7 @@ public class SQLManager extends SQLiteOpenHelper {
             final int MSG_TEXT_INDEX = cursor.getColumnIndex(TEXT_FIELD);
             msg = cursor.getString(MSG_TEXT_INDEX);
         } else {
-            msg ="";
+            msg = "";
         }
         cursor.close();
         DB.close();

@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MailingService">
-        <activity android:name=".ui.MailServiceActivity">
+        <activity android:name=".ui.WeatherServiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
