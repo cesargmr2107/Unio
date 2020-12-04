@@ -2,14 +2,10 @@ package org.uvigo.esei.unio.core;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import java.util.Properties;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -53,6 +49,7 @@ public class MailManager {
                         Transport.send(message);
                     }
                 } catch (Exception exception) {
+                    Log.e("sending-mail-error", exception.getMessage());
                     success = false;
                 }finally {
                     return success;
@@ -67,6 +64,7 @@ public class MailManager {
             ExecutorService executor = Executors.newSingleThreadExecutor();
             backgroundTaskSuccess = executor.submit(backgroundTask).get();
         }catch (Exception exception){
+            Log.e("sending-mail-error", exception.getMessage());
             throw new MailManagerException();
         }
 
