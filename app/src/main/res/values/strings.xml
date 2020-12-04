@@ -17,4 +17,21 @@
     <string name="no_subject">(No subject)</string>
     <string name="sent_mail">The email was sent</string>
     <string name="incorrect_mail_format">The email format is incorrect</string>
+
+    <!-- Email service strings -->
+    <string name="weather_welcome">If you tell me the name of a city at any time, I will show its weather forecast for today</string>
+    <string name="no_letters_weather">That is not a proper city name!</string>
+    <string name="weather_info">
+               <![CDATA[
+        <b>Current weather in %1$s :</b><br />
+        <b>· Description:</b> %2$s <br />
+        <b>· Temperature:</b> %3$s ºC<br />
+        <b>· Feels like:</b> %4$s Cº<br />
+        <b>· Minimum temperature:</b> %5$s Cº<br />
+        <b>· Maximum temperature:</b> %6$s Cº<br />
+        <b>· Humidity:</b> %7$s <br />
+        ]]>
+    </string>
+    <string name="city_not_exist">Sorry, I did not find the weather for %1$s</string>
+
 </resources>

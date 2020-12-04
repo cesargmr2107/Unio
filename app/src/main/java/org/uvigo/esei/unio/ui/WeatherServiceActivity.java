@@ -13,8 +13,7 @@ public class WeatherServiceActivity extends ServiceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         weatherManager = new WeatherManager();
-        super.sendWelcomeMessage("If you tell me the name of a city at any time, " +
-                "I'll show its weather forecast for today");
+        super.sendWelcomeMessage(getString(R.string.weather_welcome));
     }
 
     @Override
@@ -22,20 +21,23 @@ public class WeatherServiceActivity extends ServiceActivity {
         String city = super.getAndSendUserInput().trim();
         final String regex = "([A-Za-zNñ])+";
         if (!city.matches(regex)) {
-            super.sendMessage("That's not a proper city name!");
+            super.sendMessage(getString(R.string.no_letters_weather));
         } else {
             try {
                 WeatherManager.WeatherInfo weatherInfo = weatherManager.getWeatherInfo(city);
-                String weatherString = "Current weather in " + weatherInfo.getCity() + ": <br/>" +
-                        "· Description: " + weatherInfo.getDescription() + "<br/>" +
-                        "· Temperature: " + weatherInfo.getTemperature() + "<br/>" +
-                        "· Feels like: " + weatherInfo.getFeelsLike() + "<br/>" +
-                        "· Minimum temperature: " + weatherInfo.getMinTemp() + "<br/>" +
-                        "· Maximum temperature: " + weatherInfo.getMaxTemp() + "<br/>" +
-                        "· Humidity: " + weatherInfo.getHumidity();
+                String weatherString = getString(R.string.weather_info,
+                        weatherInfo.getCity(),
+                        weatherInfo.getDescription(),
+                        weatherInfo.getTemperature(),
+                        weatherInfo.getFeelsLike(),
+                        weatherInfo.getMinTemp(),
+                        weatherInfo.getMaxTemp(),
+                        weatherInfo.getHumidity());
+
                 sendMessage(weatherString);
             } catch (WeatherManager.WeatherManagerException exception) {
-                sendMessage("Sorry, I didn't find the weather for " + city);
+
+                sendMessage( getString(R.string.city_not_exist,city));
             }
         }
     }
