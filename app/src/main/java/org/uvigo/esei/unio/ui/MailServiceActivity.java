@@ -1,9 +1,14 @@
 package org.uvigo.esei.unio.ui;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 
 import org.uvigo.esei.unio.R;
 import org.uvigo.esei.unio.core.MailManager;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class MailServiceActivity extends ServiceActivity {
 
@@ -22,6 +27,8 @@ public class MailServiceActivity extends ServiceActivity {
     protected void processUserInput() {
         String newMessage = super.getAndSendUserInput();
         if (!newMessage.equals("")) {
+            final Executor EXECUTOR = Executors.newSingleThreadExecutor();
+            final Handler HANDLER = new Handler(Looper.getMainLooper());
 
             /* EMAIL TEMPLATE:
              *
@@ -31,26 +38,28 @@ public class MailServiceActivity extends ServiceActivity {
              *       **************************************************
              */
 
-            try {
+            EXECUTOR.execute( () -> {
+                try {
 
-                String[] dividedMessage = newMessage.split("\n", 2);
-                String[] dividedFirstLine = dividedMessage[0].split(":", 2);
+                    String[] dividedMessage = newMessage.split("\n", 2);
+                    String[] dividedFirstLine = dividedMessage[0].split(":", 2);
 
-                String to = dividedFirstLine[0].trim();
-                String subject = dividedFirstLine[1].trim();
-                if (subject.equals("")) {
-                    subject = getString(R.string.sent_mail);
+                    String to = dividedFirstLine[0].trim();
+                    String subject = dividedFirstLine[1].trim();
+                    if (subject.equals("")) {
+                        subject = getString(R.string.sent_mail);
+                    }
+                    String body = dividedMessage[1];
+
+                    mailManager.sendMail(to, subject, body);
+                    HANDLER.post( () -> {sendMessage(getString(R.string.sent_mail));});
+
+                } catch (ArrayIndexOutOfBoundsException exception) {
+                    HANDLER.post( () -> {sendMessage(getString(R.string.incorrect_mail_format));});
+                } catch (MailManager.MailManagerException exception) {
+                    HANDLER.post( () -> {sendMessage(getString(R.string.incorrect_mail_format));});
                 }
-                String body = dividedMessage[1];
-
-                mailManager.sendMail(to, subject, body);
-                sendMessage(getString(R.string.sent_mail));
-
-            } catch (ArrayIndexOutOfBoundsException exception) {
-                sendMessage(getString(R.string.incorrect_mail_format));
-            } catch (MailManager.MailManagerException exception) {
-                sendMessage(getString(R.string.incorrect_mail_format));
-            }
+            });
         }
     }
 }

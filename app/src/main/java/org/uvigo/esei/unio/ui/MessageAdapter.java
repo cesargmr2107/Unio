@@ -1,22 +1,35 @@
 package org.uvigo.esei.unio.ui;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.text.Html;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.SupportMenuInflater;
 import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.uvigo.esei.unio.R;
 import org.uvigo.esei.unio.core.Message;
+import org.uvigo.esei.unio.core.SQLManager;
 
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
+
+    private final SQLManager sqlManager;
 
     private Context context;
     private List<Message> messages;
@@ -26,6 +39,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public MessageAdapter(Context context, List<Message> messages) {
         this.context = context;
         this.messages = messages;
+        sqlManager = new SQLManager(context);
     }
 
     @NonNull
@@ -48,6 +62,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         } else {
             holder.showMessage.setText(message.getText());
         }
+        holder.showMessage.setTag(message);
     }
 
     @Override
@@ -72,6 +87,44 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
             showMessage = itemView.findViewById(R.id.showMessage);
+
+            itemView.findViewById(R.id.showMessage)
+             .setOnCreateContextMenuListener((contextMenu, view, contextMenuInfo) -> {
+                MenuItem Copy = contextMenu.add(Menu.NONE, 1, 1, "Copy");
+                MenuItem Delete = contextMenu.add(Menu.NONE, 2, 2, "Delete");
+
+                Copy.setOnMenuItemClickListener(menuItem -> {
+
+                    ClipboardManager clipboard = (ClipboardManager) view.getContext()
+                                                       .getSystemService(Context.CLIPBOARD_SERVICE);
+
+                    clipboard.setPrimaryClip(
+                            ClipData.newPlainText("Unio", showMessage.getText()));
+
+                    Toast.makeText(view.getContext(),
+                                    context.getString(R.string.msg_copied),
+                                    Toast.LENGTH_SHORT).show();
+
+                    return true;
+                });
+
+                Delete.setOnMenuItemClickListener(menuItem -> {
+
+                    Message message = (Message) showMessage.getTag();
+
+                    sqlManager.deleteMessage(message.getTableName(), message.getId());
+
+                    Toast.makeText(view.getContext(),
+                                "Mensaje eliminado",
+                                    Toast.LENGTH_SHORT).show();
+
+                    messages.remove(message);
+
+                    MessageAdapter.this.notifyDataSetChanged();
+
+                    return true;
+                });
+            });
         }
     }
 

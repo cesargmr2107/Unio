@@ -21,27 +21,11 @@ public class WeatherManager {
     private final static String UNITS = "metric";
 
     public WeatherInfo getWeatherInfo(String city) throws WeatherManagerException {
-
-        Callable<WeatherInfo> backgroundTask = new Callable<WeatherInfo>() {
-            @Override
-            public WeatherInfo call() {
-                String forecastJsonString = getJSONWeatherInfo(city);
-                WeatherInfo weatherInfo = processWeatherInfo(forecastJsonString, city);
-                return weatherInfo;
-            }
-        };
-
-        WeatherInfo weatherInfo;
-
-        try {
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            weatherInfo = executor.submit(backgroundTask).get();
-        } catch (Exception exception) {
-            throw new WeatherManager.WeatherManagerException();
-        }
+        String forecastJsonString = getJSONWeatherInfo(city);
+        WeatherInfo weatherInfo = processWeatherInfo(forecastJsonString, city);
 
         if (weatherInfo == null) {
-            throw new WeatherManager.WeatherManagerException();
+            throw new WeatherManagerException();
         }
 
         return weatherInfo;

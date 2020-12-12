@@ -27,48 +27,30 @@ public class MailManager {
 
     public void sendMail(String to, String subject, String body) throws MailManagerException {
 
-        Callable<Boolean> backgroundTask = new Callable<Boolean>() {
-            @Override
-            public Boolean call() {
-                boolean success = true;
-                try {
-                    Session session = Session.getDefaultInstance(configureProperties(), new Authenticator() {
-                        @Override
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(emailAddress, password);
-                        }
-                    });
-
-                    if (session != null) {
-                        Message message = new MimeMessage(session);
-                        message.setFrom(new InternetAddress(emailAddress));
-                        message.setSubject(subject);
-                        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-                        message.setContent(body, "text/html; charset=utf-8");
-
-                        Transport.send(message);
-                    }
-                } catch (Exception exception) {
-                    Log.e("sending-mail-error", exception.getMessage());
-                    success = false;
-                }finally {
-                    return success;
-                }
-            }
-        };
-
-
-        Boolean backgroundTaskSuccess;
-
+        boolean success = true;
         try {
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            backgroundTaskSuccess = executor.submit(backgroundTask).get();
-        }catch (Exception exception){
+            Session session = Session.getDefaultInstance(configureProperties(), new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(emailAddress, password);
+                }
+            });
+
+            if (session != null) {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(emailAddress));
+                message.setSubject(subject);
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+                message.setContent(body, "text/html; charset=utf-8");
+
+                Transport.send(message);
+            }
+        } catch (Exception exception) {
             Log.e("sending-mail-error", exception.getMessage());
-            throw new MailManagerException();
+            success = false;
         }
 
-        if(!backgroundTaskSuccess){
+        if(!success){
             throw new MailManagerException();
         }
 

@@ -9,15 +9,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class SQLManager extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "ServiceMessages";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
 
-    public enum ServiceTable {MailService, WeatherService}
-
+    public enum ServiceTable {MailService, WeatherService, TranslationService, NotesService,
+                              CalculatorService}
 
     public static final String ID_FIELD = "_id";
     public static final String TEXT_FIELD = "text";
@@ -84,6 +85,7 @@ public class SQLManager extends SQLiteOpenHelper {
                 ID_FIELD
         );
 
+        final int MSG_ID_INDEX = cursor.getColumnIndex(ID_FIELD);
         final int MSG_TEXT_INDEX = cursor.getColumnIndex(TEXT_FIELD);
         final int MSG_TYPE_INDEX = cursor.getColumnIndex(TYPE_FIELD);
 
@@ -94,9 +96,10 @@ public class SQLManager extends SQLiteOpenHelper {
         }
 
         do {
+            int id = cursor.getInt(MSG_ID_INDEX);
             String text = cursor.getString(MSG_TEXT_INDEX);
             Message.Type type = Message.Type.valueOf(cursor.getString(MSG_TYPE_INDEX));
-            messages.add(new Message(type, text));
+            messages.add(new Message(serviceTable, id, type, text));
         } while (cursor.moveToNext());
 
         cursor.close();
@@ -121,7 +124,7 @@ public class SQLManager extends SQLiteOpenHelper {
             final int MSG_TEXT_INDEX = cursor.getColumnIndex(TEXT_FIELD);
             msg = cursor.getString(MSG_TEXT_INDEX);
         } else {
-            msg = "";
+            msg ="";
         }
         cursor.close();
         DB.close();
@@ -153,12 +156,47 @@ public class SQLManager extends SQLiteOpenHelper {
         }
     }
 
+    public void deleteMessage(String serviceTable, int messageId) {
+        final SQLiteDatabase DB = this.getWritableDatabase();
+
+        try {
+            DB.beginTransaction();
+
+            DB.delete(serviceTable,
+                     ID_FIELD+" = ?",
+                      new String[]{messageId+""});
+
+            DB.setTransactionSuccessful();
+        } catch (SQLException error) {
+            Log.e(DB_NAME, error.getMessage());
+        } finally {
+            DB.endTransaction();
+        }
+    }
+
     public void deleteAllMessages(String serviceTable) {
         final SQLiteDatabase DB = this.getWritableDatabase();
         try {
             DB.beginTransaction();
 
             DB.delete(serviceTable, null, null);
+
+            DB.setTransactionSuccessful();
+        } catch (SQLException error) {
+            Log.e(DB_NAME, error.getMessage());
+        } finally {
+            DB.endTransaction();
+        }
+    }
+
+    public void deleteAllMessages() {
+        final SQLiteDatabase DB = this.getWritableDatabase();
+        try {
+            DB.beginTransaction();
+
+            for (ServiceTable serviceTable : ServiceTable.values()) {
+                DB.delete(serviceTable.name(), null, null);
+            }
 
             DB.setTransactionSuccessful();
         } catch (SQLException error) {

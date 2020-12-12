@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unio"
+        android:layout_gravity="center_horizontal"
+        android:gravity="bottom"
+        android:textSize="80dp"
+        android:layout_weight="0.2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aplicación desarrollada como trabajo de la asignatura de Dispositivos Móviles del Grado en Ingeniería Informática de la ESEI, Universidad de Vigo."
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        android:paddingLeft="20sp"
+        android:paddingRight="20sp"
+        android:layout_weight="0.1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Curso 2020/2021"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:textSize="20dp"
+        android:textStyle="italic"
+        android:layout_weight="0.05"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AUTORES"
+        android:layout_gravity="center_horizontal"
+        android:gravity="bottom"
+        android:paddingBottom="20sp"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:layout_weight="0.1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Iria Martínez Álvarez"
+        android:layout_gravity="center_horizontal"
+        android:textSize="18dp"
+        android:layout_weight="0.01"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="César Gabriel Márquez Rodríguez"
+        android:layout_gravity="center_horizontal"
+        android:textSize="18dp"
+        android:layout_weight="0.01"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Antonio Adrián González Pedrouzo"
+        android:layout_gravity="center_horizontal"
+        android:textSize="18dp"
+        android:layout_weight="0.1"/>
+
+</LinearLayout>

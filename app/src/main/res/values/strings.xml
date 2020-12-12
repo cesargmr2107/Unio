@@ -34,4 +34,36 @@
     </string>
     <string name="city_not_exist">Sorry, I did not find the weather for %1$s</string>
 
+
+    <!-- Translation service strings -->
+    <string name="translation_welcome">
+        <![CDATA[
+        <b>Send a text in <i>%s</i>, it will be translated to <i>%s</i>.</b><br /><br />
+        To <b>use other languages</b>, like this: <br/><br/>
+        english : spanish <br />
+        <i>Text in english (example) that will be translated to spanish</i>
+        ]]>
+    </string>
+    <string name="translation_list_command">list</string>
+    <string name="translation_fail">The translation service failed, please, try again.</string>
+    <string name="msg_copied">Mensaje copiado</string>
+    <string name="configuration">Configuration</string>
+    <string name="clear_all_chats">Clear all chats</string>
+
+    <!-- Notes service strings -->
+    <string name="notes_welcome">
+        <![CDATA[
+        <b>You can keep important links and messages here!</b>
+        ]]>
+    </string>
+
+    <!-- Calculator service strings -->
+    <string name="calculator_welcome">
+        <![CDATA[
+        <b>This is a text-based calculator</b>
+        ]]>
+    </string>
+    <string name="calculator_fail">The calculator service failed, please try again.</string>
+    <string name="copy_message">Copy message</string>
+    <string name="delete_message">Delete message</string>
 </resources>

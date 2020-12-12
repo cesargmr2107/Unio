@@ -1,11 +1,14 @@
 package org.uvigo.esei.unio.ui;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -17,8 +20,12 @@ import org.uvigo.esei.unio.core.SQLManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class ServiceActivity extends AppCompatActivity {
+
+    public static String SERVICE_NAME_KEY = "serviceName";
 
     private SQLManager sqlManager;
 
@@ -30,6 +37,16 @@ public class ServiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        String serviceName = this.getIntent().getStringExtra(SERVICE_NAME_KEY);
+
+        if (serviceName != null) {
+            actionBar.setTitle(serviceName);
+        }
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         //this.getApplicationContext().deleteDatabase("ServiceMessages");
         sqlManager = new SQLManager(this.getApplicationContext());
