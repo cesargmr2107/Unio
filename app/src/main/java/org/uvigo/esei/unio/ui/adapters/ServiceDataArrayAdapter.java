@@ -1,4 +1,4 @@
-package org.uvigo.esei.unio.ui;
+package org.uvigo.esei.unio.ui.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.uvigo.esei.unio.R;
+import org.uvigo.esei.unio.ui.MainActivity;
+import org.uvigo.esei.unio.ui.services.ServiceActivity;
 
 import java.util.ArrayList;
 

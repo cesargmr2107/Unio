@@ -1,15 +1,11 @@
-package org.uvigo.esei.unio.ui;
+package org.uvigo.esei.unio.ui.adapters;
 
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.text.Html;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.SupportMenuInflater;
 import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 

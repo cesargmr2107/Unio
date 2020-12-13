@@ -1,4 +1,4 @@
-package org.uvigo.esei.unio.ui;
+package org.uvigo.esei.unio.ui.services;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import android.widget.ImageButton;
 import org.uvigo.esei.unio.R;
 import org.uvigo.esei.unio.core.Message;
 import org.uvigo.esei.unio.core.SQLManager;
+import org.uvigo.esei.unio.ui.adapters.MessageAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +65,7 @@ public class ServiceActivity extends AppCompatActivity {
 
         final ImageButton SEND_BT = this.findViewById(R.id.sendBt);
         SEND_BT.setOnClickListener(v -> {
-            processUserInput();
+            performService();
         });
 
     }
@@ -88,8 +90,9 @@ public class ServiceActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         boolean toRet = super.onOptionsItemSelected(item);
-        switch (item.getItemId()){
-            case R.id.option_clear: clearChat();
+        switch (item.getItemId()) {
+            case R.id.option_clear:
+                clearChat();
                 break;
         }
         return toRet;
@@ -106,7 +109,7 @@ public class ServiceActivity extends AppCompatActivity {
         return wholeName.substring(0, wholeName.length() - 8);
     }
 
-    private void sendMessage(Message.Type msgType, String msg) {
+    protected void sendMessage(Message.Type msgType, String msg) {
         Message newMessage = new Message(msgType, msg);
         messages.add(newMessage);
         recyclerView.smoothScrollToPosition(messages.size());
@@ -119,23 +122,33 @@ public class ServiceActivity extends AppCompatActivity {
     }
 
     protected String getAndSendUserInput() {
+
+        String newMessage;
         final EditText NEW_MESSAGE = this.findViewById(R.id.newMessage);
-        String newMessage = NEW_MESSAGE.getText().toString();
+        newMessage = NEW_MESSAGE.getText().toString();
+
         if (!newMessage.equals("")) {
             NEW_MESSAGE.setText("");
             sendMessage(Message.Type.SENT_BY_USER, newMessage);
         }
+
         return newMessage;
     }
 
     protected void processUserInput() {
+        performService();
+    }
+
+    protected void performService() {
         getAndSendUserInput();
     }
 
-    protected void sendWelcomeMessage(String welcomeMsg){
+    protected void sendWelcomeMessage(String welcomeMsg) {
         String lastMsg = sqlManager.getLastMessage(getServiceName());
-        if(!welcomeMsg.equals(lastMsg)){
+        if (!welcomeMsg.equals(lastMsg)) {
             sendMessage(welcomeMsg);
         }
     }
+
+
 }

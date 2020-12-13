@@ -11,6 +11,12 @@ import android.widget.Toast;
 
 import org.uvigo.esei.unio.R;
 import org.uvigo.esei.unio.core.SQLManager;
+import org.uvigo.esei.unio.ui.adapters.ServiceDataArrayAdapter;
+import org.uvigo.esei.unio.ui.services.CalculatorServiceActivity;
+import org.uvigo.esei.unio.ui.services.MailServiceActivity;
+import org.uvigo.esei.unio.ui.services.NotesServiceActivity;
+import org.uvigo.esei.unio.ui.services.TranslationServiceActivity;
+import org.uvigo.esei.unio.ui.services.WeatherServiceActivity;
 
 import java.util.ArrayList;
 

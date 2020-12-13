@@ -1,9 +1,8 @@
-package org.uvigo.esei.unio.ui;
+package org.uvigo.esei.unio.ui.services;
 
 import android.os.Bundle;
 
 import org.uvigo.esei.unio.R;
-import org.uvigo.esei.unio.core.MailManager;
 
 public class NotesServiceActivity extends ServiceActivity {
 
