@@ -57,7 +57,8 @@ public class SettingsActivity extends AppCompatActivity {
     private void mailSettings() {
         AlertDialog.Builder DLG = new AlertDialog.Builder(this);
         DLG.setView(R.layout.mail_settings);
-        DLG.setPositiveButton("Save", (dialog, which) -> {});
+        DLG.setPositiveButton("Save", (dialog, which) -> {
+        });
         DLG.setNegativeButton("Cancel", null);
         DLG.create().show();
     }
@@ -65,7 +66,8 @@ public class SettingsActivity extends AppCompatActivity {
     private void translationSettings() {
         AlertDialog.Builder DLG = new AlertDialog.Builder(this);
         DLG.setView(R.layout.translation_settings);
-        DLG.setPositiveButton("Save", (dialog, which) -> {});
+        DLG.setPositiveButton("Save", (dialog, which) -> {
+        });
         DLG.setNegativeButton("Cancel", null);
         DLG.create().show();
     }
@@ -73,7 +75,8 @@ public class SettingsActivity extends AppCompatActivity {
     private void calculatorSettings() {
         AlertDialog.Builder DLG = new AlertDialog.Builder(this);
         DLG.setView(R.layout.calculator_settings);
-        DLG.setPositiveButton("Save", (dialog, which) -> {});
+        DLG.setPositiveButton("Save", (dialog, which) -> {
+        });
         DLG.setNegativeButton("Cancel", null);
         AlertDialog alert = DLG.create();
         alert.show();
@@ -85,16 +88,21 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void weatherSettings() {
         AlertDialog.Builder DLG = new AlertDialog.Builder(this);
-        DLG.setView(R.layout.weather_settings);
-        DLG.setPositiveButton("Save", (dialog, which) -> {});
+        DLG.setTitle(R.string.temperature_unit);
+        String[] options = {getString(R.string.celsius), getString(R.string.fahrenheit), getString(R.string.kelvin)};
+        final boolean[] chosen = new boolean[3];
+        DLG.setSingleChoiceItems(options, 0, (dialog, which) -> {
+            chosen[which] = true;
+        });
+        DLG.setPositiveButton("Save", (dialog, which) -> {
+        });
         DLG.setNegativeButton("Cancel", null);
         AlertDialog alert = DLG.create();
         alert.show();
-        Spinner spinner = alert.findViewById(R.id.unit_input);
-        String[] options = {getString(R.string.celsius), getString(R.string.fahrenheit), getString(R.string.kelvin)};
+        /*Spinner spinner = alert.findViewById(R.id.unit_input);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
+        spinner.setAdapter(arrayAdapter);*/
     }
 
 /*
