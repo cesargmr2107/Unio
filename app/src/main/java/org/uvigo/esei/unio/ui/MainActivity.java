@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayAdapter<ServiceData> chatListAdapter;
     private SQLManager sqlManager;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
                 });
                 builder.show();
                 break;
+            case R.id.option_config:
+                startActivity(new Intent(this, SettingsActivity.class));
+                break;
         }
 
         return toRet;
@@ -141,4 +144,5 @@ public class MainActivity extends AppCompatActivity {
             return this.serviceActivity;
         }
     }
+
 }

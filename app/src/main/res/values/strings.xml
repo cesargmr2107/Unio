@@ -72,4 +72,20 @@
     <string name="calculator_fail">The calculator service failed, please try again.</string>
     <string name="copy_message">Copy message</string>
     <string name="delete_message">Delete message</string>
+
+    <!-- SETTINGS -->
+    <string name="mail_settings">Mail</string>
+    <string name="translation_settings">Translation</string>
+    <string name="calculator_settings">Calculator</string>
+    <string name="weather_settings">Weather</string>
+    <string name="enter_email">Email</string>
+    <string name="enter_passwd">Password</string>
+    <string name="default_source_language">Default source language</string>
+    <string name="default_translation_language">Default translation language</string>
+    <string name="decimal_precision">Decimal precision</string>
+    <string name="temperature_unit">Temperature unit</string>
+    <string name="kelvin">K - Kelvin</string>
+    <string name="fahrenheit">°F - Fahrenheit</string>
+    <string name="celsius">°C - Celsius</string>
+
 </resources>
