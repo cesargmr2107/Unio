@@ -17,8 +17,10 @@ public class SQLManager extends SQLiteOpenHelper {
     private static final String DB_NAME = "ServiceMessages";
     private static final int DB_VERSION = 3;
 
-    public enum ServiceTable {MailService, WeatherService, TranslationService, NotesService,
-                              CalculatorService}
+    public enum ServiceTable {
+        MailService, WeatherService, TranslationService, NotesService,
+        CalculatorService
+    }
 
     public static final String ID_FIELD = "_id";
     public static final String TEXT_FIELD = "text";
@@ -46,7 +48,7 @@ public class SQLManager extends SQLiteOpenHelper {
             db.setTransactionSuccessful();
 
         } catch (SQLException error) {
-            Log.e(DB_NAME, error.getMessage());
+            Log.e(DB_NAME, "ERROR: " + error.getMessage());
         } finally {
             db.endTransaction();
         }
@@ -64,7 +66,7 @@ public class SQLManager extends SQLiteOpenHelper {
             db.setTransactionSuccessful();
 
         } catch (SQLException error) {
-            Log.e(DB_NAME, error.getMessage());
+            Log.e(DB_NAME, "ERROR: " + error.getMessage());
         } finally {
             db.endTransaction();
         }
@@ -124,7 +126,7 @@ public class SQLManager extends SQLiteOpenHelper {
             final int MSG_TEXT_INDEX = cursor.getColumnIndex(TEXT_FIELD);
             msg = cursor.getString(MSG_TEXT_INDEX);
         } else {
-            msg ="";
+            msg = "";
         }
         cursor.close();
         DB.close();
@@ -150,7 +152,7 @@ public class SQLManager extends SQLiteOpenHelper {
 
             DB.setTransactionSuccessful();
         } catch (SQLException error) {
-            Log.e(DB_NAME, error.getMessage());
+            Log.e(DB_NAME, "ERROR: " + error.getMessage());
         } finally {
             DB.endTransaction();
         }
@@ -163,12 +165,12 @@ public class SQLManager extends SQLiteOpenHelper {
             DB.beginTransaction();
 
             DB.delete(serviceTable,
-                     ID_FIELD+" = ?",
-                      new String[]{messageId+""});
+                    ID_FIELD + " = ?",
+                    new String[]{messageId + ""});
 
             DB.setTransactionSuccessful();
         } catch (SQLException error) {
-            Log.e(DB_NAME, error.getMessage());
+            Log.e(DB_NAME, "ERROR: " + error.getMessage());
         } finally {
             DB.endTransaction();
         }
@@ -183,7 +185,7 @@ public class SQLManager extends SQLiteOpenHelper {
 
             DB.setTransactionSuccessful();
         } catch (SQLException error) {
-            Log.e(DB_NAME, error.getMessage());
+            Log.e(DB_NAME, "ERROR: " + error.getMessage());
         } finally {
             DB.endTransaction();
         }
@@ -200,7 +202,7 @@ public class SQLManager extends SQLiteOpenHelper {
 
             DB.setTransactionSuccessful();
         } catch (SQLException error) {
-            Log.e(DB_NAME, error.getMessage());
+            Log.e(DB_NAME, "ERROR: " + error.getMessage());
         } finally {
             DB.endTransaction();
         }

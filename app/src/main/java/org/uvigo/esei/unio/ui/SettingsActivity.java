@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.ArrayAdapter;
@@ -22,9 +23,12 @@ import org.uvigo.esei.unio.core.CalculatorManager;
 import org.uvigo.esei.unio.core.SharedPreferencesManager;
 import org.uvigo.esei.unio.core.TranslationLanguages;
 import org.uvigo.esei.unio.core.TranslationManager;
+import org.uvigo.esei.unio.ui.services.MailServiceActivity;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
+
+import javax.microedition.khronos.egl.EGLDisplay;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -32,14 +36,17 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String TRANSLATE_SOURCE = "translationSourceLang";
     public static final String TRANSLATE_TRANSLATION = "translationTranslationLang";
 
-    boolean preferenciasGuardadas;
-    private static String password;
-    String email;
+    public static final String MAIL_ADDRESS = "mailAdress";
+    public static final String MAIL_PASS = "mailPass";
+
+    private EditText mailAdress;
+    private EditText mailPass;
 
     private NumberPicker calculatorNP;
 
     private Spinner sourceLangS;
     private Spinner translationLangS;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         final Button WEATHER_BUTTON = this.findViewById(R.id.weather_settings);
         WEATHER_BUTTON.setOnClickListener(v -> {
-            weatherSettings();
+            MailServiceActivity.settings(this);
         });
 
         final Button MAIL_BUTTON = this.findViewById(R.id.mail_settings);
@@ -77,10 +84,23 @@ public class SettingsActivity extends AppCompatActivity {
     private void mailSettings() {
         AlertDialog.Builder DLG = new AlertDialog.Builder(this);
         DLG.setView(R.layout.mail_settings);
+
         DLG.setPositiveButton("Save", (dialog, which) -> {
+            String email = mailAdress.getText().toString();
+            SharedPreferencesManager.setString(this, MAIL_ADDRESS, email);
+            String passwd = mailPass.getText().toString();
+            SharedPreferencesManager.setEncryptedString(this, MAIL_PASS, passwd);
+            Toast.makeText(this, R.string.setting_saved, Toast.LENGTH_SHORT).show();
         });
+
         DLG.setNegativeButton("Cancel", null);
-        DLG.create().show();
+
+        AlertDialog alert = DLG.create();
+        alert.show();
+
+        mailAdress = alert.findViewById(R.id.email_input);
+        mailPass = alert.findViewById(R.id.passwd_input);
+
     }
 
     private void translationSettings() {
@@ -88,10 +108,10 @@ public class SettingsActivity extends AppCompatActivity {
         DLG.setView(R.layout.translation_settings);
         DLG.setPositiveButton("Save", (dialog, which) -> {
             SharedPreferencesManager.setString(this, TRANSLATE_SOURCE,
-                                                sourceLangS.getSelectedItem().toString());
+                    sourceLangS.getSelectedItem().toString());
 
             SharedPreferencesManager.setString(this, TRANSLATE_TRANSLATION,
-                                                translationLangS.getSelectedItem().toString());
+                    translationLangS.getSelectedItem().toString());
 
             Toast.makeText(this, R.string.setting_saved, Toast.LENGTH_SHORT).show();
         });
@@ -101,7 +121,7 @@ public class SettingsActivity extends AppCompatActivity {
         sourceLangS = alert.findViewById(R.id.source_language_input);
         ArrayAdapter<String> arrayAdapter
                 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
-                                     TranslationLanguages.getLanguageEngList());
+                TranslationLanguages.getLanguageEngList());
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sourceLangS.setAdapter(arrayAdapter);
         String currentSourceLang = SharedPreferencesManager.getString(this, TRANSLATE_SOURCE);
@@ -136,8 +156,7 @@ public class SettingsActivity extends AppCompatActivity {
         int currentValue = SharedPreferencesManager.getInt(this, CALC_PRECISION);
         if (currentValue != -1) {
             calculatorNP.setValue(currentValue);
-        }
-        else {
+        } else {
             calculatorNP.setValue(CalculatorManager.DEFAULT_PRECISION);
         }
         calculatorNP.setWrapSelectorWheel(true);
@@ -249,22 +268,5 @@ public class SettingsActivity extends AppCompatActivity {
         return secret = new SecretKeySpec(password.getBytes(), "AES");
     }
 
-    public static byte[] encryptMsg(String message, SecretKey secret)
-            throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidParameterSpecException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
-        Cipher cipher = null;
-        cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.ENCRYPT_MODE, secret);
-        byte[] cipherText = cipher.doFinal(message.getBytes("UTF-8"));
-        return cipherText;
-    }
-
-    public static String decryptMsg(byte[] cipherText, SecretKey secret)
-            throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidParameterSpecException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException
-    {
-        Cipher cipher = null;
-        cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, secret);
-        String decryptString = new String(cipher.doFinal(cipherText), "UTF-8");
-        return decryptString;
-    }*/
+    */
 }

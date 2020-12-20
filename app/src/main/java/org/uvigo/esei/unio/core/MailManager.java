@@ -46,11 +46,11 @@ public class MailManager {
                 Transport.send(message);
             }
         } catch (Exception exception) {
-            Log.e("sending-mail-error", exception.getMessage());
+            Log.e("sending-mail-error", "ERROR: " + exception.getMessage());
             success = false;
         }
 
-        if(!success){
+        if (!success) {
             throw new MailManagerException();
         }
 

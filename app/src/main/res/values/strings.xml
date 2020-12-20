@@ -87,7 +87,7 @@
     <string name="kelvin">K - Kelvin</string>
     <string name="fahrenheit">°F - Fahrenheit</string>
     <string name="celsius">°C - Celsius</string>
-    <string name="setting_saved">Setting saved</string>
+    <string name="setting_saved">The new settings were saved</string>
     <string name="settings">Settings</string>
 
 </resources>

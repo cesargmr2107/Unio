@@ -75,7 +75,7 @@ public class WeatherManager {
 
         } catch (Exception exception) {
             forecastJson = "";
-            Log.e("weather-fetching-error", exception.getMessage());
+            Log.e("weather-fetching-error", "ERROR: " + exception.getMessage());
         } finally {
 
             if (urlConnection != null) {
@@ -115,7 +115,7 @@ public class WeatherManager {
             }
 
         } catch (Exception exception) {
-            Log.e("weather-parsing-error", exception.getMessage());
+            Log.e("weather-parsing-error", "ERROR: " + exception.getMessage());
             weatherInfo = null;
         }
 

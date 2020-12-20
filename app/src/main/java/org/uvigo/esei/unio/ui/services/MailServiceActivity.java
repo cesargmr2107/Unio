@@ -1,11 +1,18 @@
 package org.uvigo.esei.unio.ui.services;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import org.uvigo.esei.unio.R;
 import org.uvigo.esei.unio.core.MailManager;
+import org.uvigo.esei.unio.core.SharedPreferencesManager;
+import org.uvigo.esei.unio.ui.SettingsActivity;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -13,13 +20,15 @@ import java.util.concurrent.Executors;
 public class MailServiceActivity extends InternetServiceActivity {
 
     private MailManager mailManager;
-    private final String MAIL_ADDRESS = "unio.user.esei@gmail.com";
-    private final String MAIL_PASS = "unio.user.esei.2020";
+    private String mailAddress;
+    private String mailPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mailManager = new MailManager(MAIL_ADDRESS, MAIL_PASS);
+        mailAddress = SharedPreferencesManager.getString(this, SettingsActivity.MAIL_ADDRESS);
+        mailPass = SharedPreferencesManager.getEncryptedString(this, SettingsActivity.MAIL_PASS);
+        mailManager = new MailManager(mailAddress, mailPass);
         super.sendWelcomeMessage(getString(R.string.mail_welcome));
     }
 
@@ -57,6 +66,33 @@ public class MailServiceActivity extends InternetServiceActivity {
                 sendMessage(getString(R.string.incorrect_mail_format));
             }
         }
+    }
+
+    public static final String MAIL_ADDRESS = "mailAdress";
+    public static final String MAIL_PASS = "mailPass";
+
+    private static EditText mailAdressET;
+    private static EditText mailPassET;
+
+    public static void settings(Context context){
+        AlertDialog.Builder DLG = new AlertDialog.Builder(context);
+        DLG.setView(R.layout.mail_settings);
+
+        DLG.setPositiveButton("Save", (dialog, which) -> {
+            String email = mailAdressET.getText().toString();
+            SharedPreferencesManager.setString(context, MAIL_ADDRESS, email);
+            String passwd = mailPassET.getText().toString();
+            SharedPreferencesManager.setEncryptedString(context, MAIL_PASS, passwd);
+            Toast.makeText(context, R.string.setting_saved, Toast.LENGTH_SHORT).show();
+        });
+
+        DLG.setNegativeButton("Cancel", null);
+
+        AlertDialog alert = DLG.create();
+        alert.show();
+
+        mailAdressET = alert.findViewById(R.id.email_input);
+        mailPassET = alert.findViewById(R.id.passwd_input);
     }
 }
 
