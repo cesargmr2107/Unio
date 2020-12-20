@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import org.uvigo.esei.unio.R;
 import org.uvigo.esei.unio.core.Message;
@@ -178,7 +179,7 @@ public class ServiceActivity extends AppCompatActivity {
     }
 
     public void settings(Context context) {
-
+        Toast.makeText(context, R.string.no_settings_available, Toast.LENGTH_SHORT).show();
     }
 
     protected void updateSettings(Context context) {
