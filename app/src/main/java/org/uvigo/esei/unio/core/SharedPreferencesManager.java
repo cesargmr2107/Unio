@@ -40,6 +40,10 @@ public class SharedPreferencesManager {
         return getSharedPreferences(cntxt).getInt(key, -1);
     }
 
+    public static void clearPreferences(Context context){
+        getEditor(context).clear().commit();
+    }
+
     private static SharedPreferences getSharedPreferences(Context cntxt) {
         return cntxt.getSharedPreferences(UNIO_PREFERENCES, Context.MODE_PRIVATE);
     }
@@ -47,5 +51,7 @@ public class SharedPreferencesManager {
     private static SharedPreferences.Editor getEditor(Context cntxt) {
         return getSharedPreferences(cntxt).edit();
     }
+
+
 
 }

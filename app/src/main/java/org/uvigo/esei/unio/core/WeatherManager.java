@@ -18,7 +18,13 @@ import java.util.concurrent.Executors;
 public class WeatherManager {
 
     private final static String APP_ID = "10f39079bb4dfeb26f98a0daba4421d0";
-    private final static String UNITS = "metric";
+
+    public enum Unit{metric, imperial, standard}
+    private String unit;
+
+    public WeatherManager(String unit){
+        this.unit = unit;
+    }
 
     public WeatherInfo getWeatherInfo(String city) throws WeatherManagerException {
         String forecastJsonString = getJSONWeatherInfo(city);
@@ -41,7 +47,7 @@ public class WeatherManager {
             // Construct the URL for the OpenWeatherMap query
             String urlString = "https://api.openweathermap.org/data/2.5/weather?q=" + city +
                     "&appid=" + APP_ID +
-                    "&units=" + UNITS;
+                    "&units=" + unit;
             URL url = new URL(urlString);
 
             // Create the request to OpenWeatherMap, and open the connection
@@ -129,6 +135,7 @@ public class WeatherManager {
     }
 
     public class WeatherInfo {
+
         String city;
         String description;
         String feelsLike;

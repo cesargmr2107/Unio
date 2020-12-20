@@ -18,7 +18,10 @@ public class SQLManager extends SQLiteOpenHelper {
     private static final int DB_VERSION = 3;
 
     public enum ServiceTable {
-        MailService, WeatherService, TranslationService, NotesService,
+        MailService,
+        WeatherService,
+        TranslationService,
+        NotesService,
         CalculatorService
     }
 

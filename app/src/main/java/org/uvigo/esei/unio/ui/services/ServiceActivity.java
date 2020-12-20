@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -84,7 +85,7 @@ public class ServiceActivity extends AppCompatActivity {
 
         if (serviceName != null) {
             String currentMsg
-                    = SharedPreferencesManager.getString(this, CURRENT_MSG+serviceName);
+                    = SharedPreferencesManager.getString(this, CURRENT_MSG + serviceName);
 
             if (currentMsg != null) {
                 ((EditText) findViewById(R.id.newMessage)).setText(currentMsg);
@@ -96,14 +97,14 @@ public class ServiceActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         String currentMsg = ((EditText) findViewById(R.id.newMessage)).getText().toString();
-        SharedPreferencesManager.setString(this, CURRENT_MSG+serviceName, currentMsg);
+        SharedPreferencesManager.setString(this, CURRENT_MSG + serviceName, currentMsg);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         String currentMsg = ((EditText) findViewById(R.id.newMessage)).getText().toString();
-        SharedPreferencesManager.setString(this, CURRENT_MSG+serviceName, currentMsg);
+        SharedPreferencesManager.setString(this, CURRENT_MSG + serviceName, currentMsg);
     }
 
     @Override
@@ -119,6 +120,9 @@ public class ServiceActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.option_clear:
                 clearChat();
+                break;
+            case R.id.option_settings:
+                settings(this);
                 break;
         }
         return toRet;
@@ -161,10 +165,6 @@ public class ServiceActivity extends AppCompatActivity {
         return newMessage;
     }
 
-    protected void processUserInput() {
-        performService();
-    }
-
     protected void performService() {
         getAndSendUserInput();
     }
@@ -176,5 +176,8 @@ public class ServiceActivity extends AppCompatActivity {
         }
     }
 
+    public void settings(Context context) {
+
+    }
 
 }

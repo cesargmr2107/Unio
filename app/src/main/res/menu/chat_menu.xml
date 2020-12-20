@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="@string/option_clear" android:id="@+id/option_clear"/>
+    <item android:title="@string/option_settings" android:id="@+id/option_settings"/>
 </menu>

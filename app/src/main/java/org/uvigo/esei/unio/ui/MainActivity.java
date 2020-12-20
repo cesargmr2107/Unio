@@ -1,7 +1,9 @@
 package org.uvigo.esei.unio.ui;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import org.uvigo.esei.unio.R;
 import org.uvigo.esei.unio.core.SQLManager;
+import org.uvigo.esei.unio.core.SharedPreferencesManager;
 import org.uvigo.esei.unio.ui.adapters.ServiceDataArrayAdapter;
 import org.uvigo.esei.unio.ui.services.CalculatorServiceActivity;
 import org.uvigo.esei.unio.ui.services.MailServiceActivity;
@@ -30,39 +33,41 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayAdapter<ServiceData> chatListAdapter;
     private SQLManager sqlManager;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // CLEAR PREFERENCES
+        // SharedPreferencesManager.clearPreferences(this);
+
         servicios = new ArrayList<>();
 
         servicios.add(new ServiceData(getString(R.string.translator_title),
-                                        getString(R.string.translator_description),
-                                                  R.drawable.ic_baseline_translate,
-                                                  TranslationServiceActivity.class));
+                getString(R.string.translator_description),
+                R.drawable.ic_baseline_translate,
+                TranslationServiceActivity.class));
 
         servicios.add(new ServiceData(getString(R.string.weather_title),
-                                        getString(R.string.weather_description),
-                                                  R.drawable.ic_baseline_cloud,
-                                                  WeatherServiceActivity.class));
+                getString(R.string.weather_description),
+                R.drawable.ic_baseline_cloud,
+                WeatherServiceActivity.class));
 
         servicios.add(new ServiceData(getString(R.string.mailing_title),
-                                        getString(R.string.mailing_description),
-                                                  R.drawable.ic_baseline_mail,
-                                                  MailServiceActivity.class));
+                getString(R.string.mailing_description),
+                R.drawable.ic_baseline_mail,
+                MailServiceActivity.class));
 
         servicios.add(new ServiceData(getString(R.string.notes_title),
-                                        getString(R.string.notes_description),
-                                                  R.drawable.ic_outline_sticky_note,
-                                                  NotesServiceActivity.class));
+                getString(R.string.notes_description),
+                R.drawable.ic_outline_sticky_note,
+                NotesServiceActivity.class));
 
         servicios.add(new ServiceData(getString(R.string.calculator_title),
-                                        getString(R.string.calculator_description),
-                                                  R.drawable.ic_outline_calculate,
-                                                  CalculatorServiceActivity.class));
-
+                getString(R.string.calculator_description),
+                R.drawable.ic_outline_calculate,
+                CalculatorServiceActivity.class));
 
         createChatList();
 
@@ -80,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         boolean toRet = super.onOptionsItemSelected(item);
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.option_about:
                 startActivity(new Intent(this, AboutActivity.class));
                 break;
             case R.id.option_clear_all:
-                AlertDialog.Builder builder = new AlertDialog.Builder( this );
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Remove all messages?");
                 builder.setNegativeButton("Cancel", null);
                 builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
