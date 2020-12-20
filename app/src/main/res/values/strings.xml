@@ -74,8 +74,8 @@
     <string name="delete_message">Delete message</string>
 
     <!-- SETTINGS -->
-    <string name="mail_settings">Mail</string>
-    <string name="translation_settings">Translation</string>
+    <string name="mail_settings">Mailing</string>
+    <string name="translation_settings">Translator</string>
     <string name="calculator_settings">Calculator</string>
     <string name="weather_settings">Weather</string>
     <string name="enter_email">Email</string>
@@ -89,5 +89,29 @@
     <string name="celsius">°C - Celsius</string>
     <string name="setting_saved">The new settings were saved</string>
     <string name="settings">Settings</string>
+    <string name="translator_title">Translator</string>
+    <string name="translator_description">Translation Service</string>
+    <string name="weather_title">Weather</string>
+    <string name="weather_description">Meteorology Service</string>
+    <string name="mailing_title">Mailing</string>
+    <string name="mailing_description">Email Service</string>
+    <string name="notes_title">Notes</string>
+    <string name="notes_description">Notepad Service</string>
+    <string name="calculator_title">Calculator</string>
+    <string name="calculator_description">Calculator Service</string>
+    <string name="copy">Copy</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="unio">Unio</string>
+    <string name="unio_about_description">Aplicación desarrollada como trabajo de la asignatura de Dispositivos Móviles del Grado en Ingeniería Informática de la ESEI, Universidad de Vigo.</string>
+    <string name="unio_about_year">Curso 2020/2021</string>
+    <string name="unio_about_authors_title">AUTORES</string>
+    <string name="unio_about_iria">Iria Martínez Álvarez</string>
+    <string name="unio_about_cesar">César Gabriel Márquez Rodríguez</string>
+    <string name="unio_about_adrian">Antonio Adrián González Pedrouzo</string>
+    <string name="chat_demo_text">Hello</string>
+    <string name="demo_service_name">Service Name</string>
+    <string name="demo_service_description">Service description</string>
 
 </resources>

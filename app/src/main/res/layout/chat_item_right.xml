@@ -17,7 +17,7 @@
             android:background="@drawable/background_right"
             android:layout_alignParentEnd="true"
             android:padding="8dp"
-            android:text="Hello"
+            android:text="@string/chat_demo_text"
             android:textColor="@color/darkGrey"
             android:textSize="18dp" />
 

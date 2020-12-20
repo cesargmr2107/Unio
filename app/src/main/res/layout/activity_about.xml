@@ -6,7 +6,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Unio"
+        android:text="@string/unio"
         android:layout_gravity="center_horizontal"
         android:gravity="bottom"
         android:textSize="80dp"
@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aplicación desarrollada como trabajo de la asignatura de Dispositivos Móviles del Grado en Ingeniería Informática de la ESEI, Universidad de Vigo."
+        android:text="@string/unio_about_description"
         android:gravity="center_horizontal"
         android:textSize="20sp"
         android:paddingLeft="20sp"
@@ -25,7 +25,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Curso 2020/2021"
+        android:text="@string/unio_about_year"
         android:layout_gravity="center_horizontal"
         android:gravity="center_vertical"
         android:textSize="20dp"
@@ -36,7 +36,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AUTORES"
+        android:text="@string/unio_about_authors_title"
         android:layout_gravity="center_horizontal"
         android:gravity="bottom"
         android:paddingBottom="20sp"
@@ -47,7 +47,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Iria Martínez Álvarez"
+        android:text="@string/unio_about_iria"
         android:layout_gravity="center_horizontal"
         android:textSize="18dp"
         android:layout_weight="0.01"/>
@@ -55,7 +55,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="César Gabriel Márquez Rodríguez"
+        android:text="@string/unio_about_cesar"
         android:layout_gravity="center_horizontal"
         android:textSize="18dp"
         android:layout_weight="0.01"/>
@@ -63,7 +63,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Antonio Adrián González Pedrouzo"
+        android:text="@string/unio_about_adrian"
         android:layout_gravity="center_horizontal"
         android:textSize="18dp"
         android:layout_weight="0.1"/>

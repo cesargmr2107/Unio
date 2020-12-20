@@ -85,8 +85,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
             itemView.findViewById(R.id.showMessage)
              .setOnCreateContextMenuListener((contextMenu, view, contextMenuInfo) -> {
-                MenuItem Copy = contextMenu.add(Menu.NONE, 1, 1, "Copy");
-                MenuItem Delete = contextMenu.add(Menu.NONE, 2, 2, "Delete");
+                MenuItem Copy = contextMenu.add(Menu.NONE, 1, 1, R.string.copy);
+                MenuItem Delete = contextMenu.add(Menu.NONE, 2, 2, R.string.delete);
 
                 Copy.setOnMenuItemClickListener(menuItem -> {
 

@@ -38,28 +38,28 @@ public class MainActivity extends AppCompatActivity {
 
         servicios = new ArrayList<>();
 
-        servicios.add(new ServiceData("Traductor",
-                                  "Servicio de traducción entre idiomas",
+        servicios.add(new ServiceData(getString(R.string.translator_title),
+                                        getString(R.string.translator_description),
                                                   R.drawable.ic_baseline_translate,
                                                   TranslationServiceActivity.class));
 
-        servicios.add(new ServiceData("El Tiempo",
-                                  "Servicio de meteorología",
+        servicios.add(new ServiceData(getString(R.string.weather_title),
+                                        getString(R.string.weather_description),
                                                   R.drawable.ic_baseline_cloud,
                                                   WeatherServiceActivity.class));
 
-        servicios.add(new ServiceData("Correos",
-                                  "Servicio de correo electrónico",
+        servicios.add(new ServiceData(getString(R.string.mailing_title),
+                                        getString(R.string.mailing_description),
                                                   R.drawable.ic_baseline_mail,
                                                   MailServiceActivity.class));
 
-        servicios.add(new ServiceData("Notas",
-                                  "Servicio de bloc de notas",
+        servicios.add(new ServiceData(getString(R.string.notes_title),
+                                        getString(R.string.notes_description),
                                                   R.drawable.ic_outline_sticky_note,
                                                   NotesServiceActivity.class));
 
-        servicios.add(new ServiceData("Calculadora",
-                                  "Servicio de calculadora",
+        servicios.add(new ServiceData(getString(R.string.calculator_title),
+                                        getString(R.string.calculator_description),
                                                   R.drawable.ic_outline_calculate,
                                                   CalculatorServiceActivity.class));
 

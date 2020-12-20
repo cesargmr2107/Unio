@@ -170,9 +170,9 @@ public class SettingsActivity extends AppCompatActivity {
         DLG.setSingleChoiceItems(options, 0, (dialog, which) -> {
             chosen[which] = true;
         });
-        DLG.setPositiveButton("Save", (dialog, which) -> {
+        DLG.setPositiveButton(R.string.save, (dialog, which) -> {
         });
-        DLG.setNegativeButton("Cancel", null);
+        DLG.setNegativeButton(R.string.cancel, null);
         AlertDialog alert = DLG.create();
         alert.show();
         /*Spinner spinner = alert.findViewById(R.id.unit_input);
