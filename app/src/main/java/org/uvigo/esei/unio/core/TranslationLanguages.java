@@ -1,11 +1,17 @@
 package org.uvigo.esei.unio.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TranslationLanguages {
 
     private static Map<String, String> toCodeMap;
+
+    private static Map<String, String> engMap;
+
+    private static List<String> engList;
 
     static {
         toCodeMap = new HashMap<String, String>() {{
@@ -205,9 +211,85 @@ public class TranslationLanguages {
             put("chinese", "zh-CN");
             put("chino", "zh-CN");
         }};
+
+
+        engMap = new HashMap<String, String>() {{
+            put("AFRIKAANS", "af");
+            put("IRISH", "ga");
+            put("ALBANIAN", "sq");
+            put("ITALIAN", "it");
+            put("ARABIC", "ar");
+            put("JAPANESE", "ja");
+            put("AZERBAIJAN", "az");
+            put("KANNADA", "kn");
+            put("BASQUE", "eu");
+            put("KOREAN", "ko");
+            put("BENGALI", "bn");
+            put("LATIN", "la");
+            put("BELORUSSIAN", "be");
+            put("LATVIAN", "lv");
+            put("BULGARIAN", "bg");
+            put("LITHUANIAN", "lt");
+            put("CATALAN", "ca");
+            put("MACEDONIAN", "mk");
+            put("CHINESE SIMPLIFIED", "zh-CN");
+            put("MALAY", "ms");
+            put("CHINESE TRADITIONAL"," zh-TW");
+            put("MALTESE", "mt");
+            put("CROATIAN", "hr");
+            put("NORWEGIAN", "no");
+            put("CZECH", "cs");
+            put("PERSIAN", "fa");
+            put("DANISH", "da");
+            put("POLISH", "pl");
+            put("DUTCH", "nl");
+            put("PORTUGUESE", "pt");
+            put("ENGLISH", "en");
+            put("ROMANIAN", "ro");
+            put("ESPERANTO", "eo");
+            put("RUSSIAN", "ru");
+            put("ESTONIAN", "et");
+            put("SERBIAN", "sr");
+            put("FILIPINO", "tl");
+            put("SLOVAK", "sk");
+            put("FINNISH", "fi");
+            put("SLOVENIAN", "sl");
+            put("FRENCH", "fr");
+            put("SPANISH", "es");
+            put("GALICIAN", "gl");
+            put("SWAHILI", "sw");
+            put("GEORGIAN", "ka");
+            put("SWEDISH", "sv");
+            put("GERMAN", "de");
+            put("TAMIL", "ta");
+            put("GREEK", "el");
+            put("TELUGU", "te");
+            put("GUJARATI", "gu");
+            put("THAI", "th");
+            put("HAITIAN CREOLE", "ht");
+            put("TURKISH", "tr");
+            put("HEBREW", "iw");
+            put("UKRAINIAN", "uk");
+            put("HINDI", "hi");
+            put("URDU", "ur");
+            put("HUNGARIAN", "hu");
+            put("VIETNAMESE", "vi");
+            put("ICELANDIC", "is");
+            put("WELSH", "cy");
+            put("INDONESIAN", "id");
+            put("YIDDISH", "yi");
+        }};
+
+
+        engList = new ArrayList<>(engMap.keySet());
+        java.util.Collections.sort(engList);
     }
 
     public static String getLanguageCode(String language) {
-        return toCodeMap.get(language);
+        return toCodeMap.get(language.toLowerCase());
+    }
+
+    public static List<String> getLanguageEngList() {
+        return engList;
     }
 }

@@ -22,6 +22,9 @@ public class TranslationManager {
     private final String BASE_URL = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=%s&tl=%s&dt=t&q=%s&ie=UTF-8&oe=UTF-8";
     private final String LOG_TAG = "TranslationManager";
 
+    public static String ORIGINAL_DEFAULT_SOURCE_LANG = "spanish";
+    public static String ORIGINAL_DEFAULT_TRANSLATION_LANG = "english";
+
     private String defaultOriginalLanguage;
     private String defaultTranslationLanguage;
 

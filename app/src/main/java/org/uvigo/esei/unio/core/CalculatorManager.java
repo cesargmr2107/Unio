@@ -20,14 +20,28 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class CalculatorManager {
 
-    private static final String BASE_URL = "https://api.mathjs.org/v4/?expr=%s";
+    private static final String BASE_URL = "https://api.mathjs.org/v4/?expr=%s&precision=%s";
     private static final String LOG_TAG = "CalculatorManager";
 
-    public static String calculate(String input) throws CalculatorManagerException {
+    public static final int DEFAULT_PRECISION = 2;
+    private static int currentPrecision;
+
+    public static String calculate(String input, Integer precision) throws CalculatorManagerException {
+        if (precision != null) {
+            currentPrecision = precision;
+        }
+        else {
+            currentPrecision = DEFAULT_PRECISION;
+        }
+
+        return calculate(input);
+    }
+
+    private static String calculate(String input) throws CalculatorManagerException {
         String toRet = null;
 
         try {
-            String url = String.format(BASE_URL, URLEncoder.encode(input, "utf-8"));
+            String url = String.format(BASE_URL, URLEncoder.encode(input, "utf-8"), currentPrecision);
 
             System.out.println("URL: " + url);
 
@@ -39,7 +53,7 @@ public class CalculatorManager {
             connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 
             connection.connect();
-            int codigoRespuesta = connection.getResponseCode();
+            //int codigoRespuesta = connection.getResponseCode();
             InputStream is = connection.getInputStream();
 
             String response = getStringFromStream(is);

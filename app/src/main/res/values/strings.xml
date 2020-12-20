@@ -45,7 +45,7 @@
     <string name="translation_welcome">
         <![CDATA[
         <b>Send a text in <i>%s</i>, it will be translated to <i>%s</i>.</b><br /><br />
-        To <b>use other languages</b>, like this: <br/><br/>
+        To <b>use other languages</b>, use this format: <br/><br/>
         english : spanish <br />
         <i>Text in english (example) that will be translated to spanish</i>
         ]]>
@@ -87,5 +87,6 @@
     <string name="kelvin">K - Kelvin</string>
     <string name="fahrenheit">°F - Fahrenheit</string>
     <string name="celsius">°C - Celsius</string>
+    <string name="setting_saved">Setting saved</string>
 
 </resources>

@@ -3,6 +3,7 @@ package org.uvigo.esei.unio.ui;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.ArrayAdapter;
@@ -13,17 +14,31 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.uvigo.esei.unio.R;
+import org.uvigo.esei.unio.core.CalculatorManager;
+import org.uvigo.esei.unio.core.SharedPreferencesManager;
+import org.uvigo.esei.unio.core.TranslationLanguages;
+import org.uvigo.esei.unio.core.TranslationManager;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    public static final String CALC_PRECISION = "calculatorDecimalPrecision";
+    public static final String TRANSLATE_SOURCE = "translationSourceLang";
+    public static final String TRANSLATE_TRANSLATION = "translationTranslationLang";
+
     boolean preferenciasGuardadas;
     private static String password;
     String email;
+
+    private NumberPicker calculatorNP;
+
+    private Spinner sourceLangS;
+    private Spinner translationLangS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,23 +82,60 @@ public class SettingsActivity extends AppCompatActivity {
         AlertDialog.Builder DLG = new AlertDialog.Builder(this);
         DLG.setView(R.layout.translation_settings);
         DLG.setPositiveButton("Save", (dialog, which) -> {
+            SharedPreferencesManager.setString(this, TRANSLATE_SOURCE,
+                                                sourceLangS.getSelectedItem().toString());
+
+            SharedPreferencesManager.setString(this, TRANSLATE_TRANSLATION,
+                                                translationLangS.getSelectedItem().toString());
+
+            Toast.makeText(this, R.string.setting_saved, Toast.LENGTH_SHORT).show();
         });
         DLG.setNegativeButton("Cancel", null);
-        DLG.create().show();
+        AlertDialog alert = DLG.create();
+        alert.show();
+        sourceLangS = alert.findViewById(R.id.source_language_input);
+        ArrayAdapter<String> arrayAdapter
+                = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                                     TranslationLanguages.getLanguageEngList());
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sourceLangS.setAdapter(arrayAdapter);
+        String currentSourceLang = SharedPreferencesManager.getString(this, TRANSLATE_SOURCE);
+        if (currentSourceLang == null) {
+            currentSourceLang = TranslationManager.ORIGINAL_DEFAULT_SOURCE_LANG;
+        }
+        sourceLangS.setSelection(TranslationLanguages.getLanguageEngList().indexOf(currentSourceLang.toUpperCase()));
+
+        translationLangS = alert.findViewById(R.id.translation_language_input);
+        translationLangS.setAdapter(arrayAdapter);
+        String currentTranslationLang = SharedPreferencesManager.getString(this, TRANSLATE_TRANSLATION);
+        if (currentTranslationLang == null) {
+            currentTranslationLang = TranslationManager.ORIGINAL_DEFAULT_TRANSLATION_LANG;
+        }
+        translationLangS.setSelection(TranslationLanguages.getLanguageEngList().indexOf(currentTranslationLang.toUpperCase()));
     }
 
     private void calculatorSettings() {
         AlertDialog.Builder DLG = new AlertDialog.Builder(this);
         DLG.setView(R.layout.calculator_settings);
-        DLG.setPositiveButton("Save", (dialog, which) -> {
-        });
+
         DLG.setNegativeButton("Cancel", null);
+        DLG.setPositiveButton("Save", (dialog, which) -> {
+            SharedPreferencesManager.setInt(this, CALC_PRECISION, this.calculatorNP.getValue());
+            Toast.makeText(this, R.string.setting_saved, Toast.LENGTH_SHORT).show();
+        });
         AlertDialog alert = DLG.create();
         alert.show();
-        NumberPicker numberPicker = alert.findViewById(R.id.precision_input);
-        numberPicker.setMaxValue(5);
-        numberPicker.setMinValue(0);
-        numberPicker.setWrapSelectorWheel(true);
+        calculatorNP = alert.findViewById(R.id.precision_input);
+        calculatorNP.setMaxValue(15);
+        calculatorNP.setMinValue(1);
+        int currentValue = SharedPreferencesManager.getInt(this, CALC_PRECISION);
+        if (currentValue != -1) {
+            calculatorNP.setValue(currentValue);
+        }
+        else {
+            calculatorNP.setValue(CalculatorManager.DEFAULT_PRECISION);
+        }
+        calculatorNP.setWrapSelectorWheel(true);
     }
 
     private void weatherSettings() {

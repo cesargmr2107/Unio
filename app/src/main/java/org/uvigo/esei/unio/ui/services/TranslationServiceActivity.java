@@ -1,13 +1,16 @@
 package org.uvigo.esei.unio.ui.services;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
 import org.uvigo.esei.unio.R;
+import org.uvigo.esei.unio.core.SharedPreferencesManager;
 import org.uvigo.esei.unio.core.TranslationLanguages;
 import org.uvigo.esei.unio.core.TranslationManager;
+import org.uvigo.esei.unio.ui.SettingsActivity;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -15,18 +18,32 @@ import java.util.concurrent.Executors;
 public class TranslationServiceActivity extends InternetServiceActivity {
 
     private TranslationManager translationManager;
-    private final String DEFAULT_ORIGINAL_LANG = "es";
-    private final String DEFAULT_TRANSLATION_LANG = "gl";
 
     @SuppressLint("StringFormatMatches")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        translationManager = new TranslationManager(DEFAULT_ORIGINAL_LANG,
-                DEFAULT_TRANSLATION_LANG);
+
+        String defaultOriginalLang = SharedPreferencesManager
+                                        .getString(this, SettingsActivity.TRANSLATE_SOURCE);
+
+        if (defaultOriginalLang == null) {
+            defaultOriginalLang = TranslationManager.ORIGINAL_DEFAULT_SOURCE_LANG;
+        }
+
+        String defaultTranslationLang = SharedPreferencesManager
+                                    .getString(this, SettingsActivity.TRANSLATE_TRANSLATION);
+
+        if (defaultTranslationLang == null) {
+            defaultTranslationLang = TranslationManager.ORIGINAL_DEFAULT_TRANSLATION_LANG;
+        }
+
+        translationManager = new TranslationManager(
+                                    TranslationLanguages.getLanguageCode(defaultOriginalLang),
+                                    TranslationLanguages.getLanguageCode(defaultTranslationLang));
 
         super.sendWelcomeMessage(String.format(getString(R.string.translation_welcome),
-                DEFAULT_ORIGINAL_LANG, DEFAULT_TRANSLATION_LANG,
+                defaultOriginalLang, defaultTranslationLang,
                 getString(R.string.translation_list_command)));
     }
 
@@ -46,11 +63,6 @@ public class TranslationServiceActivity extends InternetServiceActivity {
              *       **************************************************
              *       *   Original Language : Translation Language     *
              *       *   Text in "Original Language"                  *
-             *       **************************************************
-             *
-             *  3. List available languages:
-             *       **************************************************
-             *       *   list                                         *
              *       **************************************************
              *
              */
