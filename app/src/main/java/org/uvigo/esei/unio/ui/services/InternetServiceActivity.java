@@ -101,4 +101,14 @@ public class InternetServiceActivity extends ServiceActivity {
         return newMessage[0];
     }
 
+    @Override
+    public void settings(Context context) {
+
+    }
+
+    @Override
+    protected void updateSettings(Context context) {
+
+    }
+
 }

@@ -20,18 +20,14 @@ public class CalculatorServiceActivity extends InternetServiceActivity {
 
     public static final String CALC_PRECISION = "calculatorDecimalPrecision";
     private int precision;
-    private static NumberPicker calculatorNP;
+    private NumberPicker calculatorNP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.sendWelcomeMessage(getString(R.string.calculator_welcome));
 
-        precision = SharedPreferencesManager.getInt(this, CALC_PRECISION);
-
-        if (precision == -1) {
-            precision = CalculatorManager.DEFAULT_PRECISION;
-        }
+        updateSettings(this);
     }
 
     @Override
@@ -45,12 +41,13 @@ public class CalculatorServiceActivity extends InternetServiceActivity {
                 sendMessage(result);
             } catch (CalculatorManager.CalculatorManagerException e) {
                 result = getString(R.string.calculator_fail);
-                e.printStackTrace();
+                sendMessage(result);
             }
         }
     }
 
 
+    @Override
     public void settings(Context context){
         AlertDialog.Builder DLG = new AlertDialog.Builder(context);
         DLG.setView(R.layout.calculator_settings);
@@ -59,6 +56,7 @@ public class CalculatorServiceActivity extends InternetServiceActivity {
         DLG.setPositiveButton("Save", (dialog, which) -> {
             SharedPreferencesManager.setInt(context, CALC_PRECISION, calculatorNP.getValue());
             Toast.makeText(context, R.string.setting_saved, Toast.LENGTH_SHORT).show();
+            updateSettings(context);
         });
         AlertDialog alert = DLG.create();
         alert.show();
@@ -72,6 +70,15 @@ public class CalculatorServiceActivity extends InternetServiceActivity {
             calculatorNP.setValue(CalculatorManager.DEFAULT_PRECISION);
         }
         calculatorNP.setWrapSelectorWheel(true);
+    }
+
+    @Override
+    protected void updateSettings(Context context) {
+        precision = SharedPreferencesManager.getInt(context, CALC_PRECISION);
+
+        if (precision == -1) {
+            precision = CalculatorManager.DEFAULT_PRECISION;
+        }
     }
 
 }

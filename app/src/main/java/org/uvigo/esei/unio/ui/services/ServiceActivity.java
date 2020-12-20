@@ -55,7 +55,8 @@ public class ServiceActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         //this.getApplicationContext().deleteDatabase("ServiceMessages");
-        sqlManager = new SQLManager(this.getApplicationContext());
+
+        sqlManager = SQLManager.getInstance(this);
 
         messages = new ArrayList<>();
         msgAdapter = new MessageAdapter(ServiceActivity.this, messages);
@@ -177,6 +178,10 @@ public class ServiceActivity extends AppCompatActivity {
     }
 
     public void settings(Context context) {
+
+    }
+
+    protected void updateSettings(Context context) {
 
     }
 

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import org.uvigo.esei.unio.R;
+import org.uvigo.esei.unio.core.CalculatorManager;
 import org.uvigo.esei.unio.core.MailManager;
 import org.uvigo.esei.unio.core.SharedPreferencesManager;
 import org.uvigo.esei.unio.ui.SettingsActivity;
@@ -26,15 +27,13 @@ public class MailServiceActivity extends InternetServiceActivity {
     public static final String MAIL_ADDRESS = "mailAdress";
     public static final String MAIL_PASS = "mailPass";
 
-    private static EditText mailAdressET;
-    private static EditText mailPassET;
+    private EditText mailAdressET;
+    private EditText mailPassET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mailAddress = SharedPreferencesManager.getString(this, MAIL_ADDRESS);
-        mailPass = SharedPreferencesManager.getEncryptedString(this, MAIL_PASS);
-        mailManager = new MailManager(mailAddress, mailPass);
+        updateSettings(this);
         if (mailAddress != null) {
             super.sendWelcomeMessage(getString(R.string.mail_welcome, mailAddress));
         } else {
@@ -73,11 +72,12 @@ public class MailServiceActivity extends InternetServiceActivity {
                 } catch (ArrayIndexOutOfBoundsException exception) {
                     sendMessage(getString(R.string.incorrect_mail_format));
                 } catch (MailManager.MailManagerException exception) {
-                    sendMessage(getString(R.string.incorrect_mail_format));
+                    sendMessage(getString(R.string.mail_manager_service_error));
                 }
             }
-        } else {
-            super.sendMessage(getString(R.string.no_mail_account));
+            else {
+                super.sendMessage(getString(R.string.no_mail_account));
+            }
         }
     }
 
@@ -92,6 +92,7 @@ public class MailServiceActivity extends InternetServiceActivity {
             String passwd = mailPassET.getText().toString();
             SharedPreferencesManager.setEncryptedString(context, MAIL_PASS, passwd);
             Toast.makeText(context, R.string.setting_saved, Toast.LENGTH_SHORT).show();
+            updateSettings(context);
         });
 
         DLG.setNegativeButton("Cancel", null);
@@ -103,6 +104,13 @@ public class MailServiceActivity extends InternetServiceActivity {
         String mailAddress = SharedPreferencesManager.getString(context, MAIL_ADDRESS);
         mailAdressET.setText((mailAddress == null) ? "" : mailAddress);
         mailPassET = alert.findViewById(R.id.passwd_input);
+    }
+
+    @Override
+    protected void updateSettings(Context context) {
+        mailAddress = SharedPreferencesManager.getString(context, MAIL_ADDRESS);
+        mailPass = SharedPreferencesManager.getEncryptedString(context, MAIL_PASS);
+        mailManager = new MailManager(mailAddress, mailPass);
     }
 }
 

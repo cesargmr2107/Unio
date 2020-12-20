@@ -26,11 +26,7 @@ public class WeatherServiceActivity extends InternetServiceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        unit = SharedPreferencesManager.getString(this, UNITS_WEATHER);
-        if (unit == null) {
-            unit = WeatherManager.Unit.metric.toString();
-        }
-        weatherManager = new WeatherManager(unit);
+        updateSettings(this);
         super.sendWelcomeMessage(getString(R.string.weather_welcome));
     }
 
@@ -93,9 +89,19 @@ public class WeatherServiceActivity extends InternetServiceActivity {
         DLG.setPositiveButton(R.string.save, (dialog, which) -> {
             SharedPreferencesManager.setString(context, UNITS_WEATHER, WeatherManager.Unit.values()[unit[0]].toString());
             Toast.makeText(context, R.string.setting_saved, Toast.LENGTH_SHORT).show();
+            updateSettings(context);
         });
         DLG.setNegativeButton(R.string.cancel, null);
         AlertDialog alert = DLG.create();
         alert.show();
+    }
+
+    @Override
+    protected void updateSettings(Context context) {
+        unit = SharedPreferencesManager.getString(context, UNITS_WEATHER);
+        if (unit == null) {
+            unit = WeatherManager.Unit.metric.toString();
+        }
+        weatherManager = new WeatherManager(unit);
     }
 }

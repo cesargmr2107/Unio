@@ -15,7 +15,7 @@ import java.util.List;
 public class SQLManager extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "ServiceMessages";
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 1;
 
     public enum ServiceTable {
         MailService,
@@ -29,7 +29,15 @@ public class SQLManager extends SQLiteOpenHelper {
     public static final String TEXT_FIELD = "text";
     public static final String TYPE_FIELD = "type";
 
-    public SQLManager(Context context) {
+    private static SQLManager singleton;
+    public static SQLManager getInstance(Context context) {
+        if (singleton == null) {
+            singleton = new SQLManager(context);
+        }
+        return singleton;
+    }
+
+    private SQLManager(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 

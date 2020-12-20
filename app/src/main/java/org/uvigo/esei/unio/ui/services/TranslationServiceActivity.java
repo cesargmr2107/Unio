@@ -24,38 +24,24 @@ public class TranslationServiceActivity extends InternetServiceActivity {
 
     private TranslationManager translationManager;
 
-    private static Spinner sourceLangS;
-    private static Spinner translationLangS;
+    private Spinner sourceLangS;
+    private Spinner translationLangS;
 
     public static final String TRANSLATE_SOURCE = "translationSourceLang";
     public static final String TRANSLATE_TRANSLATION = "translationTranslationLang";
+    private String defaultOriginalLang;
+    private String defaultTranslationLang;
 
     @SuppressLint("StringFormatMatches")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String defaultOriginalLang = SharedPreferencesManager
-                .getString(this, TRANSLATE_SOURCE);
+        updateSettings(this);
 
-        if (defaultOriginalLang == null) {
-            defaultOriginalLang = TranslationManager.ORIGINAL_DEFAULT_SOURCE_LANG;
-        }
-
-        String defaultTranslationLang = SharedPreferencesManager
-                .getString(this, TRANSLATE_TRANSLATION);
-
-        if (defaultTranslationLang == null) {
-            defaultTranslationLang = TranslationManager.ORIGINAL_DEFAULT_TRANSLATION_LANG;
-        }
-
-        translationManager = new TranslationManager(
-                TranslationLanguages.getLanguageCode(defaultOriginalLang),
-                TranslationLanguages.getLanguageCode(defaultTranslationLang));
-
-        super.sendWelcomeMessage(String.format(getString(R.string.translation_welcome),
-                defaultOriginalLang, defaultTranslationLang,
-                getString(R.string.translation_list_command)));
+        super.sendWelcomeMessage(
+            String.format(getString(R.string.translation_welcome),
+                    defaultOriginalLang, defaultTranslationLang));
     }
 
     @Override
@@ -130,6 +116,8 @@ public class TranslationServiceActivity extends InternetServiceActivity {
                     translationLangS.getSelectedItem().toString());
 
             Toast.makeText(context, R.string.setting_saved, Toast.LENGTH_SHORT).show();
+
+            updateSettings(context);
         });
         DLG.setNegativeButton("Cancel", null);
         AlertDialog alert = DLG.create();
@@ -153,5 +141,27 @@ public class TranslationServiceActivity extends InternetServiceActivity {
             currentTranslationLang = TranslationManager.ORIGINAL_DEFAULT_TRANSLATION_LANG;
         }
         translationLangS.setSelection(TranslationLanguages.getLanguageEngList().indexOf(currentTranslationLang.toUpperCase()));
+    }
+
+
+    @Override
+    protected void updateSettings(Context context) {
+        defaultOriginalLang = SharedPreferencesManager
+                .getString(context, TRANSLATE_SOURCE);
+
+        if (defaultOriginalLang == null) {
+            defaultOriginalLang = TranslationManager.ORIGINAL_DEFAULT_SOURCE_LANG;
+        }
+
+        defaultTranslationLang = SharedPreferencesManager
+                .getString(context, TRANSLATE_TRANSLATION);
+
+        if (defaultTranslationLang == null) {
+            defaultTranslationLang = TranslationManager.ORIGINAL_DEFAULT_TRANSLATION_LANG;
+        }
+
+        translationManager = new TranslationManager(
+                TranslationLanguages.getLanguageCode(defaultOriginalLang),
+                TranslationLanguages.getLanguageCode(defaultTranslationLang));
     }
 }

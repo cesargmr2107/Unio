@@ -119,5 +119,6 @@
     <string name="cancel">Cancel</string>
     <string name="proceed">Proceed</string>
     <string name="all_messages_deleted">All messages deleted</string>
+    <string name="mail_manager_service_error">There is a problem with the mail server or your user data is not correct</string>
 
 </resources>

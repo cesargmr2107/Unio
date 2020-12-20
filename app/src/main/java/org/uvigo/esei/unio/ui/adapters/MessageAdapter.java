@@ -34,7 +34,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public MessageAdapter(Context context, List<Message> messages) {
         this.context = context;
         this.messages = messages;
-        sqlManager = new SQLManager(context);
+        sqlManager = SQLManager.getInstance(context);
     }
 
     @NonNull

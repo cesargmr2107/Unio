@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         createChatList();
 
-        sqlManager = new SQLManager(this.getApplicationContext());
+        sqlManager = SQLManager.getInstance(this);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     private void createChatList() {
         final ListView lvServices = this.findViewById(R.id.lv_chat_list);
 
-        this.chatListAdapter = new ServiceDataArrayAdapter(this, this.servicios);
+        this.chatListAdapter = new ServiceDataArrayAdapter(this, servicios);
         lvServices.setAdapter(this.chatListAdapter);
     }
 
