@@ -91,13 +91,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.option_clear_all:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Remove all messages?");
-                builder.setNegativeButton("Cancel", null);
-                builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+                builder.setTitle(R.string.remove_all_messages);
+                builder.setNegativeButton(R.string.cancel, null);
+                builder.setPositiveButton(R.string.proceed, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         sqlManager.deleteAllMessages();
-                        Toast.makeText(MainActivity.this, "All messages deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.all_messages_deleted, Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.show();

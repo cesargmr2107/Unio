@@ -105,16 +105,19 @@
     <string name="copy">Copy</string>
     <string name="delete">Delete</string>
     <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
     <string name="unio">Unio</string>
-    <string name="unio_about_description">Aplicación desarrollada como trabajo de la asignatura de Dispositivos Móviles del Grado en Ingeniería Informática de la ESEI, Universidad de Vigo.</string>
-    <string name="unio_about_year">Curso 2020/2021</string>
-    <string name="unio_about_authors_title">AUTORES</string>
+    <string name="unio_about_description">This app was developed as a project for the \'Dispositivos Móviles\' course of the Computer Science degree at ESEI (Universidad de Vigo).</string>
+    <string name="unio_about_year">Academic year 2020/2021</string>
+    <string name="unio_about_authors_title">AUTHORS</string>
     <string name="unio_about_iria">Iria Martínez Álvarez</string>
     <string name="unio_about_cesar">César Gabriel Márquez Rodríguez</string>
     <string name="unio_about_adrian">Antonio Adrián González Pedrouzo</string>
     <string name="chat_demo_text">Hello</string>
     <string name="demo_service_name">Service Name</string>
     <string name="demo_service_description">Service description</string>
+    <string name="remove_all_messages">Remove all messages?</string>
+    <string name="cancel">Cancel</string>
+    <string name="proceed">Proceed</string>
+    <string name="all_messages_deleted">All messages deleted</string>
 
 </resources>
