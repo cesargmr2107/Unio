@@ -43,8 +43,8 @@ public class TranslationServiceActivity extends InternetServiceActivity {
                                     TranslationLanguages.getLanguageCode(defaultTranslationLang));
 
         super.sendWelcomeMessage(String.format(getString(R.string.translation_welcome),
-                defaultOriginalLang, defaultTranslationLang,
-                getString(R.string.translation_list_command)));
+                                                defaultOriginalLang, defaultTranslationLang,
+                                                getString(R.string.translation_list_command)));
     }
 
     @Override

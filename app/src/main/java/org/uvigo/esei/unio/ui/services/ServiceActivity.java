@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import org.uvigo.esei.unio.R;
 import org.uvigo.esei.unio.core.Message;
 import org.uvigo.esei.unio.core.SQLManager;
+import org.uvigo.esei.unio.core.SharedPreferencesManager;
 import org.uvigo.esei.unio.ui.adapters.MessageAdapter;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import java.util.concurrent.Executors;
 
 public class ServiceActivity extends AppCompatActivity {
 
+    private static final String CURRENT_MSG = "CURRENT_MSG_";
     public static String SERVICE_NAME_KEY = "serviceName";
 
     private SQLManager sqlManager;
@@ -34,6 +36,7 @@ public class ServiceActivity extends AppCompatActivity {
     private MessageAdapter msgAdapter;
     private List<Message> messages;
     private RecyclerView recyclerView;
+    private String serviceName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class ServiceActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
 
-        String serviceName = this.getIntent().getStringExtra(SERVICE_NAME_KEY);
+        serviceName = this.getIntent().getStringExtra(SERVICE_NAME_KEY);
 
         if (serviceName != null) {
             actionBar.setTitle(serviceName);
@@ -78,6 +81,29 @@ public class ServiceActivity extends AppCompatActivity {
         messages.addAll(dbMessages);
         msgAdapter.notifyDataSetChanged();
         recyclerView.smoothScrollToPosition(messages.size());
+
+        if (serviceName != null) {
+            String currentMsg
+                    = SharedPreferencesManager.getString(this, CURRENT_MSG+serviceName);
+
+            if (currentMsg != null) {
+                ((EditText) findViewById(R.id.newMessage)).setText(currentMsg);
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        String currentMsg = ((EditText) findViewById(R.id.newMessage)).getText().toString();
+        SharedPreferencesManager.setString(this, CURRENT_MSG+serviceName, currentMsg);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        String currentMsg = ((EditText) findViewById(R.id.newMessage)).getText().toString();
+        SharedPreferencesManager.setString(this, CURRENT_MSG+serviceName, currentMsg);
     }
 
     @Override
